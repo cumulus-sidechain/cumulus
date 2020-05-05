@@ -9,9 +9,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/dapperlabs/flow-consensus-research/hotstuff/roles/consensus/bft"
-	"github.com/dapperlabs/flow-consensus-research/hotstuff/roles/consensus/crypto"
-	"github.com/dapperlabs/flow-consensus-research/hotstuff/roles/consensus/server"
+	"github.com/cumulus-sidechain/cumulus/hotstuff/roles/consensus/bft"
+	"github.com/cumulus-sidechain/cumulus/hotstuff/roles/consensus/crypto"
+	"github.com/cumulus-sidechain/cumulus/hotstuff/roles/consensus/server"
 )
 
 type CommandLine struct{}

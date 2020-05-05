@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/dapperlabs/flow-consensus-research/hotstuff/identity"
+	"github.com/cumulus-sidechain/cumulus/hotstuff/identity"
 )
 
 const (

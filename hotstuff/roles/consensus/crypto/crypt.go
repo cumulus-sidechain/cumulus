@@ -1,6 +1,6 @@
 package crypto
 
-import "github.com/dapperlabs/flow-consensus-research/hotstuff/roles/consensus/bft"
+import "github.com/cumulus-sidechain/cumulus/hotstuff/roles/consensus/bft"
 
 func SignMsg(msg interface{}, signer uint) *bft.Signature {
 	// var sig bytes.Buffer
