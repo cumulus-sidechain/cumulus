@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package flow.services.consensus;
+option go_package = "consensus";
+
+// note on import: https://github.com/flycheck/flycheck/issues/1453#issuecomment-382414672
+import "shared/messages.proto";
+import "google/protobuf/empty.proto";
+
+message ProcessViewChangeRequest {
+    flow.shared.messages.QuorumCertificate highestQc = 1;
+    flow.shared.messages.Signature signature = 2;
+}
+
+message ProcessBlockProposalRequest {
+    // BlockProposal blockProposal = 1;
+    flow.shared.messages.Block block = 1;
+    flow.shared.messages.Signature signature = 2;
+}
+
+message ProcessVoteRequest {
+    bytes blockHash = 1;
+    flow.shared.messages.Signature signature = 2;
+}
+
+message QueryBlockRequest {
+    bytes blockHash = 1;
+}
+
+message QueryBlockReply {
+    flow.shared.messages.Block block = 1;
+}
+
+
+
+// ~~~~~~~~~~~~~~ Add gRPC below ~~~~~~~~~~~~~~ //
+
+service ConsensusService {
+  // Process view change messages from replicas
+  rpc ProcessViewChange (ProcessViewChangeRequest) returns (google.protobuf.Empty);
+
+  // Process block proposal from replicas
+  rpc ProcessBlockProposal (ProcessBlockProposalRequest) returns (google.protobuf.Empty);
+
+  // Process vote from replicas
+  rpc ProcessVote (ProcessVoteRequest) returns (google.protobuf.Empty);
+
+  rpc QueryBlock (QueryBlockRequest) returns (QueryBlockReply);
+}

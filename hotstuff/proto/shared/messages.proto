@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package flow.shared.messages;
+
+option go_package = "shared";
+
+message Signature {
+  bytes rawSignature = 1;
+  uint32 signer = 2; // index of signer in IdentityTable
+}
+
+message AggregatedSignatures {
+  bytes rawAggregatedSignature = 1;
+  bytes signers = 2; // bit-array of signers
+}
+
+// This is the content of the block; its hash is signed for votes
+message Block {
+  string chainID = 1; // This value currenlty set to constant, e.g. empty string
+  uint64 height = 2;
+  bytes previousBlockHash = 3;
+  google.protobuf.Timestamp timestamp = 4;
+  bytes payload = 5; // We assume the payload is between 256 and 512 kB, for details: see https://drive.google.com/open?id=1H6af1JKrhP5RORis9Yl8CGLB4QbJnzPA8qvsNznjUtA
+  QuorumCertificate qc = 6;
+}
+
+// A block proposal is a Block augmented with some additional data
+message ProposedBlock {
+  uint32 ProposerID = 1; // potentially redundant with ViewNumber
+  uint32 ViewNumber = 2; // potentially redundant with  ProposerID
+  Block block = 3;
+  Signature proposerSignature = 4; // signature of Hash(block)
+}
+
+// A finalized block is a Block augmented with signatures from consensus nodes
+message FinalizedBlock {
+  Block block = 2;
+  AggregatedSignatures proposerSignature = 3;   
+}
+
+message QuorumCertificate {
+  bytes blockHash = 1;
+  flow.shared.messages.AggregatedSignatures aggregatedSignatures = 2;
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> James/ScalingNumNodes4
